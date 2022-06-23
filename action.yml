@@ -1,0 +1,33 @@
+name: Setup jq
+description: Simple GitHub Action to add jq to your path
+inputs:
+  version:
+    description: Version of jq
+    default: 1.6
+outputs:
+  path:
+    description: Absolute path to the jq binary
+    value: ${{ steps.jq.outputs.path }}
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      if: jq
+      run: |
+        mkdir ${{ github.action_path }}/jq
+        if ${{ runner.os == 'Linux' }}; then
+            bin_name=jq-linux64
+            out_name=jq
+        elif ${{ runer.os == 'Windows' }}; then
+            bin_name=jq-win64.exe
+            out_name=jq.exe
+        elif ${{ runner.os == 'macOS' }}; then
+            bin_name=jq-osx-amd64
+            out_name=jq
+        else
+            exit 1
+        fi
+        wget https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} -o ${{ github.action_path }}/jq/${out_name}
+        chmod +x ${{ github.action_path }}/jq/${out_name}
+        echo ${{ github.action_path }}/jq >> ${GITHUB_PATH}
+        echo "::set-output name=path::${{ github.action_path }}/jq/${out_name}"
