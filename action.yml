@@ -18,7 +18,7 @@ runs:
         if ${{ runner.os == 'Linux' }}; then
             bin_name=jq-linux64
             out_name=jq
-        elif ${{ runer.os == 'Windows' }}; then
+        elif ${{ runner.os == 'Windows' }}; then
             bin_name=jq-win64.exe
             out_name=jq.exe
         elif ${{ runner.os == 'macOS' }}; then
