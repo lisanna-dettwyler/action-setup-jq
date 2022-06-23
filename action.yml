@@ -12,6 +12,7 @@ runs:
   using: composite
   steps:
     - shell: bash
+      id: jq
       run: |
         mkdir ${{ github.action_path }}/jq
         if ${{ runner.os == 'Linux' }}; then
@@ -26,7 +27,7 @@ runs:
         else
             exit 1
         fi
-        wget https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} -o ${{ github.action_path }}/jq/${out_name}
+        wget https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} -O ${{ github.action_path }}/jq/${out_name}
         chmod +x ${{ github.action_path }}/jq/${out_name}
         echo ${{ github.action_path }}/jq >> ${GITHUB_PATH}
         echo "::set-output name=path::${{ github.action_path }}/jq/${out_name}"
