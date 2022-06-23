@@ -12,7 +12,6 @@ runs:
   using: composite
   steps:
     - shell: bash
-      if: jq
       run: |
         mkdir ${{ github.action_path }}/jq
         if ${{ runner.os == 'Linux' }}; then
