@@ -12,5 +12,7 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - id: setup-jq
+        uses: ./
       - run: jq --version
+      - run: ${{ steps.setup-jq.outputs.path }} --version
