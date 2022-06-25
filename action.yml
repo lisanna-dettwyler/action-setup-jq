@@ -14,19 +14,22 @@ runs:
     - shell: bash
       id: jq
       run: |
-        mkdir ${{ github.action_path }}/jq
         if ${{ runner.os == 'Linux' }}; then
             bin_name=jq-linux64
             out_name=jq
+            action_path=${{ github.action_path }}
         elif ${{ runner.os == 'Windows' }}; then
             bin_name=jq-win64.exe
             out_name=jq.exe
+            action_path=$(cygpath -u '${{ github.action_path }}')
         elif ${{ runner.os == 'macOS' }}; then
             bin_name=jq-osx-amd64
             out_name=jq
+            action_path=${{ github.action_path }}
         else
             exit 1
         fi
+        mkdir ${{ github.action_path }}/jq
         wget https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} -O ${{ github.action_path }}/jq/${out_name}
         chmod +x ${{ github.action_path }}/jq/${out_name}
         echo ${{ github.action_path }}/jq >> ${GITHUB_PATH}
