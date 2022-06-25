@@ -29,8 +29,8 @@ runs:
         else
             exit 1
         fi
-        mkdir ${{ github.action_path }}/jq
-        wget https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} -O ${{ github.action_path }}/jq/${out_name}
-        chmod +x ${{ github.action_path }}/jq/${out_name}
-        echo ${{ github.action_path }}/jq >> ${GITHUB_PATH}
-        echo "::set-output name=path::${{ github.action_path }}/jq/${out_name}"
+        mkdir ${action_path}/jq
+        wget https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} -O ${action_path}/jq/${out_name}
+        chmod +x ${action_path}/jq/${out_name}
+        echo ${action_path}/jq >> ${GITHUB_PATH}
+        echo "::set-output name=path::${action_path}/jq/${out_name}"
