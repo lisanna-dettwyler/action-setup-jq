@@ -17,7 +17,7 @@ runs:
         if ${{ runner.os == 'Linux' }}; then
             bin_name=jq-linux64
             out_name=jq
-            action_path_unix='${{ github.action_path }}''
+            action_path_unix='${{ github.action_path }}'
         elif ${{ runner.os == 'Windows' }}; then
             bin_name=jq-win64.exe
             out_name=jq.exe
