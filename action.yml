@@ -22,6 +22,7 @@ runs:
             bin_name=jq-win64.exe
             out_name=jq.exe
             action_path=$(cygpath -u '${{ github.action_path }}')
+            wget() { powershell -command "wget ${@}"; }
         elif ${{ runner.os == 'macOS' }}; then
             bin_name=jq-osx-amd64
             out_name=jq
