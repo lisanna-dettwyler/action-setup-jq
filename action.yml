@@ -34,5 +34,6 @@ runs:
         wget \
           https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} \
           -O '${{ github.action_path }}'/jq/${out_name}
+        chmod +x ${action_path_unix}/jq/${out_name}
         echo ${action_path_unix}/jq >> ${GITHUB_PATH}
         echo ::set-output name=path::'${{ github.action_path }}'/jq/${out_name}
