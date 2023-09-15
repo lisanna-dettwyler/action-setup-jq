@@ -17,16 +17,16 @@ runs:
         if ${{ runner.os == 'Linux' }}; then
             bin_name=jq-linux64
             out_name=jq
-            action_path_unix='${GITHUB_ACTION_PATH}'
+            action_path_unix=${GITHUB_ACTION_PATH}
         elif ${{ runner.os == 'Windows' }}; then
             bin_name=jq-win64.exe
             out_name=jq.exe
-            action_path_unix=$(cygpath -u '${GITHUB_ACTION_PATH}')
+            action_path_unix=$(cygpath -u "${GITHUB_ACTION_PATH}")
             wget() { powershell -command "wget ${@}"; }
         elif ${{ runner.os == 'macOS' }}; then
             bin_name=jq-osx-amd64
             out_name=jq
-            action_path_unix='${GITHUB_ACTION_PATH}'
+            action_path_unix=${GITHUB_ACTION_PATH}
         else
             exit 1
         fi
