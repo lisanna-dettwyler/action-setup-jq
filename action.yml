@@ -17,23 +17,23 @@ runs:
         if ${{ runner.os == 'Linux' }}; then
             bin_name=jq-linux64
             out_name=jq
-            action_path_unix='${{ github.action_path }}'
+            action_path_unix='${GITHUB_ACTION_PATH}'
         elif ${{ runner.os == 'Windows' }}; then
             bin_name=jq-win64.exe
             out_name=jq.exe
-            action_path_unix=$(cygpath -u '${{ github.action_path }}')
+            action_path_unix=$(cygpath -u '${GITHUB_ACTION_PATH}')
             wget() { powershell -command "wget ${@}"; }
         elif ${{ runner.os == 'macOS' }}; then
             bin_name=jq-osx-amd64
             out_name=jq
-            action_path_unix='${{ github.action_path }}'
+            action_path_unix='${GITHUB_ACTION_PATH}'
         else
             exit 1
         fi
         mkdir ${action_path_unix}/jq
-        wget \
+        curl -L \
           https://github.com/stedolan/jq/releases/download/jq-${{ inputs.version }}/${bin_name} \
-          -O '${{ github.action_path }}'/jq/${out_name}
+          -o '${GITHUB_ACTION_PATH}'/jq/${out_name}
         chmod +x ${action_path_unix}/jq/${out_name}
         echo ${action_path_unix}/jq >> ${GITHUB_PATH}
         echo ::set-output name=path::'${{ github.action_path }}'/jq/${out_name}
