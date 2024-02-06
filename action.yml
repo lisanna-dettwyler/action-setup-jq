@@ -36,4 +36,4 @@ runs:
           -o "${GITHUB_ACTION_PATH}/jq/${out_name}"
         chmod +x ${action_path_unix}/jq/${out_name}
         echo ${action_path_unix}/jq >> ${GITHUB_PATH}
-        echo ::set-output name=path::'${{ github.action_path }}'/jq/${out_name}
+        echo path='${{ github.action_path }}'/jq/${out_name} >> ${GITHUB_OUTPUT}
